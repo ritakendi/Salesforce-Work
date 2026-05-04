@@ -1,0 +1,62 @@
+<template>
+    <div class="favorites-container">
+        <h2 class="favorites-title">Contacts</h2>
+        <!-- Favorites summary -->
+        <div class="favorites-summary" onmouseenter={handleSummaryHover} onmouseleave={handleSummaryLeave}>
+            <div class="favorite-count">
+                <span class="favorite-label">Favorites:</span>
+                <span class="favorite-number">{favorites.length}</span>
+            </div>
+        </div>
+        <!-- Error message -->
+        <template if:true={error}>
+            <div class="slds-box slds-theme_alert-texture slds-theme_alert_error">
+                <p class="slds-text-color_error">
+                    Error loading contacts: {error.body.message}
+                </p>
+            </div>
+        </template>
+
+        <template if:false={error}>
+            <div class="contacts-list">
+                <template if:true={contacts.length}>
+                    <ul class="contact-items">
+                        <template for:each={contactsWithFavoriteStatus} for:item="contact">
+                            <li key={contact.Id} class="contact-item">
+                                <!-- Contact item -->
+                                <button 
+                                    class="favorite-button"
+                                    class:favorite-active={contact.isFavorite}
+                                    data-contact-id={contact.Id}
+                                    onclick={toggleFavorite}
+                                    title={contact.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                                    aria-label="Toggle favorite for {contact.FirstName} {contact.LastName}"
+                                >
+                                    <svg 
+                                        class="heart-icon"
+                                        viewBox="0 0 24 24" 
+                                        width="24" 
+                                        height="24"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                    </svg>
+                                </button>
+                                <div class="contact-details">
+                                    <span class="contact-name">{contact.FirstName} {contact.LastName}</span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+
+                <template if:false={contacts.length}>
+                    <div class="slds-box slds-text-align_center">
+                        <!-- No contacts message -->
+                        <p class="slds-text-body_regular">{noContactsMessage}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

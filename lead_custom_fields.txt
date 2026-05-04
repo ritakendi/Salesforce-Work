@@ -1,0 +1,5 @@
+SICCode__c
+ProductInterest__c
+Primary__c
+CurrentGenerators__c
+NumberofLocations__c

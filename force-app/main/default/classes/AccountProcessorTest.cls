@@ -1,6 +1,5 @@
 @isTest
 public class AccountProcessorTest {
-    // Test method to verify that the countContacts future method correctly counts the number of contacts related to an account
     @isTest public static void testContactNumber(){
         Account acc = new Account(
             Name = 'Rita'  

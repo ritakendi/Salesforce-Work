@@ -12,7 +12,6 @@ global class LeadProcessor implements Database.Batchable<sObject>, Database.Stat
         }
         update scope;
     }
-    // This method is called after the batch job has finished processing all batches. It retrieves the job details and sends an email notification with the number of leads updated.
     public void finish(Database.BatchableContext bc){
         AsyncApexJob job = [SELECT Id, Status, JobItemsProcessed, TotalJobItems FROM AsyncApexJob WHERE Id =:bc.getJobId()];
         //call some utility to send email

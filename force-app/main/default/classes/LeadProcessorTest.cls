@@ -10,7 +10,6 @@ public class LeadProcessorTest {
         insert leads;
     }
     @isTest static void test(){
-        // Run the batch class and verify that all leads have been updated with the new LeadSource value.
         Test.startTest();
         LeadProcessor lps = new LeadProcessor();
         Id batchId = Database.executeBatch(lps);

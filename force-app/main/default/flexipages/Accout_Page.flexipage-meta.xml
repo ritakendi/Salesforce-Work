@@ -43,6 +43,30 @@
                 <identifier>RecordNumber_Of_Contacts__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Contact__c</fieldItem>
+                <identifier>RecordContact__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Campaign__c</fieldItem>
+                <identifier>RecordCampaign__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Storage_Location__c</fieldItem>
+                <identifier>RecordStorage_Location__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Country_Code__c</fieldItem>
+                <identifier>RecordCountry_Code__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-f531bc54-654e-40f2-bb10-e6be4cd6e58a</name>
         <type>Facet</type>
     </flexiPageRegions>

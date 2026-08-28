@@ -5,6 +5,7 @@ public with sharing class AccountTriggerHandler {
             if (acc.BillingState != null) {
                 acc.ShippingState = acc.BillingState;
             }
+            acc.Status__c = 'Active';
         }
     }
 }

@@ -32,7 +32,10 @@ export default class ContactFavoritesList extends LightningElement {
     get contactsWithFavoriteStatus() {
         return this.contacts.map(contact => ({
             ...contact,
-            isFavorite: this.favorites.has(contact.Id)
+            isFavorite: this.favorites.has(contact.Id),
+            favoriteButtonClass: this.favorites.has(contact.Id)
+                ? 'favorite-button favorite-active'
+                : 'favorite-button'
         }));
     }
 

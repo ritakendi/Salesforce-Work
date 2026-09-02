@@ -25,12 +25,11 @@
                             <li key={contact.Id} class="contact-item">
                                 <!-- Contact item -->
                                 <button 
-                                    class="favorite-button"
-                                    class:favorite-active={contact.isFavorite}
+                                    class={contact.favoriteButtonClass}
                                     data-contact-id={contact.Id}
                                     onclick={toggleFavorite}
-                                    title={contact.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                                    aria-label="Toggle favorite for {contact.FirstName} {contact.LastName}"
+                                    title="Toggle favorite"
+                                    aria-label="Toggle favorite"
                                 >
                                     <svg 
                                         class="heart-icon"

@@ -9,7 +9,7 @@ public class TestDataFactory {
     public static Contact createContact(Id accountId) {
         return new Contact(
             LastName = 'Test Contact',
-            AccountId = createAccount().Id
+            AccountId = accountId
         );
     }
 }

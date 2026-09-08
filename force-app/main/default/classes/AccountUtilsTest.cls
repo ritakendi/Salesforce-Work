@@ -4,7 +4,7 @@ public class AccountUtilsTest {
         Account testAccount = TestDataFactory.createAccount();
         insert testAccount;
         List<Account> myAccounts = AccountUtils.accountsByState('KE');
-        System.assertEquals(myAccounts.size(), 1);
+        System.assertEquals(1,myAccounts.size());
         System.assertEquals(myAccounts[0].Name, 'Test Account');
     }
     @istest static void testGetAccountsByStatus() {
@@ -12,23 +12,39 @@ public class AccountUtilsTest {
         insert testAccount;
 
         Test.startTest();
-        List<Account> myAccounts = AccountUtils.getAccountsByStatus('Inactive');
+        List<Account> myAccounts = AccountUtils.getAccountsByStatus('Active');
         Test.stopTest();
 
-        System.assertEquals(myAccounts.size(), 1);
-        System.assertEquals(myAccounts[0].Name, 'Test Account');
+        System.assertEquals(1, myAccounts.size());
+        System.assertEquals('Test Account', myAccounts[0].Name);
     }
     @istest static void testGetContactCountByAccountId() {
         Account testAccount = TestDataFactory.createAccount();
-            insert testAccount;
-
-        Contact testContact = TestDataFactory.createContact();
+        insert testAccount;
+        Contact testContact = TestDataFactory.createContact(testAccount.Id);
         insert testContact;
 
         Test.startTest();
-        Integer contactCount = AccountUtils.getContactCountByAccountId(testAccount.Id);
+        Integer contactCount = AccountUtils.getContactCountByAccountId(testContact.AccountId);
         Test.stopTest();
 
-        System.assertEquals(contactCount, 1);
+        System.assertEquals(1, contactCount);
+    }
+    @isTest static void testisHighPriorityAccount() {
+        Account testAccount = TestDataFactory.createAccount();
+        testAccount.CustomerPriority__c = 'High';
+        insert testAccount;
+
+        Test.startTest();
+        Boolean isHighPriority = AccountUtils.isHighPriorityAccount(testAccount.Id);
+        Test.stopTest();
+
+        System.assertEquals(true, isHighPriority);
+
+        //Test with a non-high priority account
+        testAccount.CustomerPriority__c = 'Low';
+        update testAccount;
+        isHighPriority = AccountUtils.isHighPriorityAccount(testAccount.Id);
+        System.assertEquals(false, isHighPriority);
     }
 }

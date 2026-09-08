@@ -5,7 +5,7 @@ public class ContactTriggerTest {
         // Call the testdata factory to create Account and Contact records then insert
         Account account = TestDataFactory.createAccount();
         insert account;
-        Contact contact = TestDataFactory.createContact();
+        Contact contact = TestDataFactory.createContact(account.Id);
         contact.AccountId = account.Id;
 
         Test.startTest();
@@ -25,12 +25,12 @@ public class ContactTriggerTest {
         Account account = TestDataFactory.createAccount();
         insert account;
 
-        Contact firstContact = TestDataFactory.createContact();
+        Contact firstContact = TestDataFactory.createContact(account.Id);
         firstContact.AccountId = account.Id;
 
         Test.startTest();
         insert firstContact;
-        Contact secondContact = TestDataFactory.createContact();
+        Contact secondContact = TestDataFactory.createContact(account.Id);
         secondContact.AccountId = account.Id;
         insert secondContact;
         Test.stopTest();

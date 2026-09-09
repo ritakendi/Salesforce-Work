@@ -2,7 +2,7 @@ public class ContactTriggerHandler {
     // we need a set of Accounts for affected Accounts
     public static void handleContactChanges(
         List<Contact> newContacts,
-        Map<Id, Contact> oldContactsMap, 
+        Map<Id, Contact> oldContactsMap,
         Boolean isDelete,
         Boolean isUpdate
     )
@@ -28,9 +28,9 @@ public class ContactTriggerHandler {
                         }
                     }
                 }
-            }        
+            }
             if (!affectedAccountIds.isEmpty()) {
                 AccountProcessor.countContacts(new List<Id>(affectedAccountIds));
             }
-        } 
+        }
 }

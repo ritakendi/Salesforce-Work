@@ -4,8 +4,8 @@ public class AccountUtilsTest {
         Account testAccount = TestDataFactory.createAccount();
         insert testAccount;
         List<Account> myAccounts = AccountUtils.accountsByState('KE');
-        System.assertEquals(1,myAccounts.size());
-        System.assertEquals(myAccounts[0].Name, 'Test Account');
+        System.assertEquals(1, myAccounts.size());
+        System.assertEquals('Test Account', myAccounts[0].Name);
     }
     @istest static void testGetAccountsByStatus() {
         Account testAccount = TestDataFactory.createAccount();

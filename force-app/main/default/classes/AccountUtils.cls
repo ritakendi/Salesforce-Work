@@ -1,19 +1,17 @@
 public class AccountUtils {
     public static List<Account>accountsByState(String abbreviatedState){
-        List<Account> myAccounts = [SELECT Id, Name FROM Account WHERE BillingState =:abbreviatedState];
-        return myAccounts;
+        return [SELECT Id, Name FROM Account WHERE Country_Code__c =:abbreviatedState];
     }
     public static List<Account> getAccountsByStatus(String status) {
-        List<Account> myAccounts = [SELECT Name FROM Account WHERE Status__c = :status];
-        return myAccounts;
+        return [SELECT Id, Name FROM Account WHERE Status__c = :status];
     }
 
     public static Integer getContactCountByAccountId(Id accountId) {
-        List<Contact> myContacts = [SELECT Id FROM Contact WHERE AccountId = :accountId];
-        return myContacts.size();
+        return [SELECT COUNT() FROM Contact WHERE AccountId = :accountId];
     }
 
-    public static Boolean isHighPriority(Account acc) {
+    public static Boolean isHighPriorityAccount(Id accountId) {
+        Account acc = [SELECT CustomerPriority__c FROM Account WHERE Id = :accountId LIMIT 1];
         if (acc.CustomerPriority__c == 'High') {
             return true;
         }

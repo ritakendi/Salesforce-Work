@@ -6,10 +6,10 @@ public class TestDataFactory {
             Country_Code__c = 'KE'
         );
     }
-    public static Contact createContact() {
+    public static Contact createContact(Id accountId) {
         return new Contact(
             LastName = 'Test Contact',
-            AccountId = createAccount().Id
+            AccountId = accountId
         );
     }
 }

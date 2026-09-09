@@ -97,4 +97,18 @@ public class ContactTriggerTest {
         Account updatedAccount = [SELECT Number_Of_Contacts__c FROM Account WHERE Id = :acc.Id];
         System.assertEquals(200, updatedAccount.Number_Of_Contacts__c, 'Number of Contacts should be 200 after inserting 200 contacts');
     }
+    @isTest static void testMovingContactToNullAccount() {
+        Account acc = TestDataFactory.createAccount();
+        insert acc;
+        Contact contact = TestDataFactory.createContact(acc.Id);
+        insert contact;
+
+        Test.startTest();
+        contact.AccountId = null;
+        update contact;
+        Test.stopTest();
+
+        Account updatedAccount = [SELECT Number_Of_Contacts__c FROM Account WHERE Id = :acc.Id];
+        System.assertEquals(0, updatedAccount.Number_Of_Contacts__c, 'Number of Contacts should be 0 after moving the Contact to null Account');
+    }
 }

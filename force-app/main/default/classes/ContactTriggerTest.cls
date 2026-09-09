@@ -91,6 +91,7 @@ public class ContactTriggerTest {
         for (Contact c : contactsToUpdate) {
             c.LastName = 'UpdatedLastName';
         }
+        update contactsToUpdate;
         Test.stopTest();
 
         Account updatedAccount = [SELECT Number_Of_Contacts__c FROM Account WHERE Id = :acc.Id];

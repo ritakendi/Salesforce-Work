@@ -1,16 +1,18 @@
-public with sharing class DescribePractice {
+public class DescribePractice {
     public static void printAccountFields() {
         Map<String, Schema.SObjectField> fields =
             Schema.SObjectType.Account.fields.getMap();
+
         System.debug('Total fields on Account: ' + fields.size());
 
-        for (String fieldName : fields.keySet()) {
-            Schema.describeFieldResult fieldDescribe = fields.get(fieldName).getDescribe();
+        for (String key : fields.keySet()) {
+            Schema.DescribeFieldResult d = fields.get(key).getDescribe();
+
             System.debug(
-                'Field: ' + fieldDescribe.getName() +
-                ' | Type: ' + fieldDescribe.getType() +
-                ' | Label: ' + fieldDescribe.getLabel() +
-                ' | Custom: ' + fieldDescribe.isCustom()
+                'Field: ' + d.getName() +
+                ' | Type: ' + d.getType() +
+                ' | Label: ' + d.getLabel() +
+                ' | Custom: ' + d.isCustom()
             );
         }
     }

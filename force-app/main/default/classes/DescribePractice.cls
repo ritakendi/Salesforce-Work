@@ -16,4 +16,19 @@ public class DescribePractice {
             );
         }
     }
+    public static void printAccountRecordTypes() {
+        Schema.DescribeSObjectResult accMtd = Schema.SObjectType.Account.getDescribe();
+        Schema.RecordTypeInfo[] recordTypeInfos = accMtd.getRecordTypeInfos();
+
+        for (Schema.RecordTypeInfo rti : recordTypeInfos) {
+            System.debug{
+                'Record Type Name: ' + rti.getName() +
+                ' | Record Type Id: ' + rti.getRecordTypeId() +
+                ' | Is Active: ' + rti.isActive() +
+                ' | Is Default: ' + rti.isDefaultRecordTypeMapping() +
+                ' | Developer Name: ' + rti.getDeveloperName() +
+                ' | isAvailable: ' + rti.isAvailable()
+            };
+        }
+    }
 }

@@ -1,1 +1,1 @@
-DescribePractice.printAccountRecordTypes();
+DescribePractice.printAccountIndustryPicklist();

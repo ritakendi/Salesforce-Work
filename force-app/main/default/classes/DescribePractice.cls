@@ -31,4 +31,17 @@ public class DescribePractice {
             );
         }
     }
+    public static void printAccountIndustryPicklist() {
+        Schema.DescribeFieldResult industryField = Account.Industry.getDescribe();
+
+        List<Schema.PicklistEntry> picklistValues = industryField.getPicklistValues();
+        for (Schema.PicklistEntry p : picklistValues) {
+            System.debug(
+                'Label: ' + p.getLabel() +
+                ' | Value: ' + p.getValue() +
+                ' | Active: ' + p.isActive() +
+                ' | Default: ' + p.isDefaultValue()
+            );
+        }
+    }
 }

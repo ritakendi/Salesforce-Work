@@ -1,1 +1,1 @@
-DescribePractice.printAccountFields();
+DescribePractice.printAccountIndustryPicklist();

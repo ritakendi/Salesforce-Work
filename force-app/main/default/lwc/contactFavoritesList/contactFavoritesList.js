@@ -23,22 +23,22 @@ export default class ContactFavoritesList extends LightningElement {
         }
     }
 
-    get favoritesList() {
-        return this.favorites;
-    }
-
     // Computed property to determine if there are any favorites
     get hasFavorites() {
         return this.favorites.length > 0;
     }
     get contactsWithFavoriteStatus() {
-        return this.contacts.map(contact => ({
-            ...contact,
-            isFavorite: this.favorites.includes(contact.Id),
-            favoriteButtonClass: this.favorites.includes(contact.Id)
-                ? 'favorite-button favorite-active'
-                : 'favorite-button'
-        }));
+        return this.contacts.map(contact => {
+            const isFavorite = this.favorites.includes(contact.Id);
+
+            return {
+                ...contact,
+                isFavorite,
+                favoriteButtonClass: isFavorite
+                    ? 'favorite-button favorite-active'
+                    : 'favorite-button'
+            };
+        });
     }
 
     toggleFavorite(event) {

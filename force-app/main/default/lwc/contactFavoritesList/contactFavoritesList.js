@@ -4,23 +4,23 @@ import getContacts from '@salesforce/apex/ContactController.getContacts';
 export default class ContactFavoritesList extends LightningElement {
     contacts = [];
     favorites = [];
-    isLoading = false;
+    isLoading = true;
     error = undefined;
 
     // Fetch contacts from Apex controller
     @wire(getContacts)
     wiredContacts({ error, data }) {
-        this.isLoading = true;
 
         if (data) {
             this.contacts = data;
             this.error = undefined;
+            this.isLoading = false;
         } else if (error) {
             this.error = error;
             this.contacts = [];
+            this.isLoading = false;
             console.error('Error fetching contacts:', error);
         }
-        this.isLoading = false;
     }
 
     get favoritesList() {
@@ -34,8 +34,8 @@ export default class ContactFavoritesList extends LightningElement {
     get contactsWithFavoriteStatus() {
         return this.contacts.map(contact => ({
             ...contact,
-            isFavorite: this.favorites.has(contact.Id),
-            favoriteButtonClass: this.favorites.has(contact.Id)
+            isFavorite: this.favorites.includes(contact.Id),
+            favoriteButtonClass: this.favorites.includes(contact.Id)
                 ? 'favorite-button favorite-active'
                 : 'favorite-button'
         }));

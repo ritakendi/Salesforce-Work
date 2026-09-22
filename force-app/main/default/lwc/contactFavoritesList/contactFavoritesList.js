@@ -1,33 +1,35 @@
 import { LightningElement, wire } from 'lwc';
 import getContacts from '@salesforce/apex/ContactController.getContacts';
 
-// LWC to display a list of contacts with the ability to mark them as favorites.
 export default class ContactFavoritesList extends LightningElement {
     contacts = [];
-    favorites = new Set();
+    favorites = [];
     isLoading = false;
     error = undefined;
 
     // Fetch contacts from Apex controller
     @wire(getContacts)
     wiredContacts({ error, data }) {
+        this.isLoading = true;
+
         if (data) {
             this.contacts = data;
             this.error = undefined;
         } else if (error) {
             this.error = error;
             this.contacts = [];
-            this.console.error('Error fetching contacts:', error);
+            console.error('Error fetching contacts:', error);
         }
+        this.isLoading = false;
     }
 
     get favoritesList() {
-        return Array.from(this.favorites);
+        return this.favorites;
     }
 
     // Computed property to determine if there are any favorites
     get hasFavorites() {
-        return this.favorites.size > 0;
+        return this.favorites.length > 0;
     }
     get contactsWithFavoriteStatus() {
         return this.contacts.map(contact => ({
@@ -41,18 +43,16 @@ export default class ContactFavoritesList extends LightningElement {
 
     toggleFavorite(event) {
         event.preventDefault();
-        const contactId = event.currentTarget.dataset.contactId;
-        
-        if (this.favorites.has(contactId)) {
-            this.favorites.delete(contactId);
-        } else {
-            this.favorites.add(contactId);
-            this.favoritesList.push(contactId); // Add to favorites list for display
-        }
 
-        // Force re-render by creating a new array
-        this.contacts = [...this.contacts];
-        this.favoritesList = [...this.favoritesList];
+        const contactId = event.currentTarget.dataset.contactId;
+
+        if (this.favorites.includes(contactId)) {
+            this.favorites = this.favorites.filter(
+                favoriteId => favoriteId !== contactId
+            );
+        } else {
+            this.favorites = [...this.favorites, contactId];
+        }
     }
     // Helper method to get contact's full name or initials
     getContactName(contact) {
@@ -60,8 +60,7 @@ export default class ContactFavoritesList extends LightningElement {
         const lastName = contact.LastName || '';
         const fullName = `${firstName} ${lastName}`.trim();
         const initials = `${firstName.charAt(0) || ''}${lastName.charAt(0) || ''}`.toUpperCase();
-        return fullName || initials || 'Unknown Contact';  
-        return `${firstName} ${lastName}`.trim();
+        return fullName || initials || 'Unknown Contact';
     }
 
     // Helper method to get contact's initials for avatar

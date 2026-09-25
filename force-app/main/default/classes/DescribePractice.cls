@@ -32,7 +32,7 @@ public class DescribePractice {
         }
     }
     public static void printAccountIndustryPicklist() {
-        Schema.DescribeFieResult industryField = Account.Industry.getDescribe();
+        Schema.DescribeFieldResult industryField = Account.Industry.getDescribe();
 
         List<Schema.PicklistEntry> picklistValues = industryField.getPicklistValues();
         for (Schema.PicklistEntry p : picklistValues) {
